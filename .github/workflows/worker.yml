@@ -1,0 +1,13 @@
+name: worker
+on:
+  workflow_dispatch:
+    inputs:
+      task:
+        default: "0"
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          END=$(( $(date +%s) + 150 ))
+          while [ $(date +%s) -lt $END ]; do python3 -c "print(sum(i*i for i in range(3000000)))" >/dev/null; done
